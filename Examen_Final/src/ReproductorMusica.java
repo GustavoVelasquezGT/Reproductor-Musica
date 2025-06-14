@@ -5,9 +5,11 @@ public class ReproductorMusica {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Playlist playlist = new Playlist();
-        int opcion;
-        
+        int opcion = 0;
+
         do {
+            limpiarConsola(); // Limpiar la consola antes del menú
+
             System.out.println("\n--- REPRODUCTOR DE MÚSICA ---");
             System.out.println("1. Crear nueva playlist");
             System.out.println("2. Agregar canción");
@@ -24,6 +26,7 @@ public class ReproductorMusica {
                     case 1:
                         playlist = new Playlist();
                         System.out.println("Nueva playlist creada.");
+                        pausa(scanner);
                         break;
                     case 2:
                         System.out.print("Ingrese el título: ");
@@ -33,33 +36,61 @@ public class ReproductorMusica {
                         System.out.print("Ingrese duración en segundos: ");
                         int duracion = Integer.parseInt(scanner.nextLine());
                         playlist.agregarCancion(titulo, artista, duracion);
+                        pausa(scanner);
                         break;
                     case 3:
                         playlist.mostrarCanciones();
+                        pausa(scanner);
                         break;
                     case 4:
                         System.out.print("Ingrese el título a buscar: ");
                         playlist.buscarCancion(scanner.nextLine());
+                        pausa(scanner);
                         break;
                     case 5:
                         System.out.print("Ingrese el título a eliminar: ");
                         playlist.eliminarCancion(scanner.nextLine());
+                        pausa(scanner);
                         break;
                     case 6:
                         System.out.println("Saliendo del sistema...");
                         break;
                     default:
                         System.out.println("Opción inválida.");
+                        pausa(scanner);
                 }
             } catch (Exception e) {
                 System.out.println("Entrada inválida. Intente de nuevo.");
+                pausa(scanner);
             }
+
         } while (opcion != 6);
 
         scanner.close();
     }
+
+    // Método para limpiar la consola
+    public static void limpiarConsola() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("No se pudo limpiar la consola.");
+        }
+    }
+
+    // Método para pausar la consola hasta que el usuario presione Enter
+    public static void pausa(Scanner scanner) {
+        System.out.println("\nPresione Enter para continuar...");
+        scanner.nextLine();
+    }
 }
 
+// Clase de canción (nodo)
 class Cancion {
     String titulo;
     String artista;
@@ -74,6 +105,7 @@ class Cancion {
     }
 }
 
+// Clase lista enlazada (playlist)
 class Playlist {
     private Cancion cabeza;
 
