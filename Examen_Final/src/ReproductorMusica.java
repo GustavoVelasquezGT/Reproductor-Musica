@@ -8,7 +8,7 @@ public class ReproductorMusica {
         int opcion = 0;
 
         do {
-            limpiarConsola(); // Limpiar la consola antes del menú
+            limpiarConsola(); 
 
             System.out.println("\n--- REPRODUCTOR DE MÚSICA ---");
             System.out.println("1. Crear nueva playlist");
@@ -69,7 +69,6 @@ public class ReproductorMusica {
         scanner.close();
     }
 
-    // Método para limpiar la consola
     public static void limpiarConsola() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
@@ -83,14 +82,12 @@ public class ReproductorMusica {
         }
     }
 
-    // Método para pausar la consola hasta que el usuario presione Enter
     public static void pausa(Scanner scanner) {
         System.out.println("\nPresione Enter para continuar...");
         scanner.nextLine();
     }
 }
 
-// Clase de canción (nodo)
 class Cancion {
     String titulo;
     String artista;
@@ -105,7 +102,6 @@ class Cancion {
     }
 }
 
-// Clase lista enlazada (playlist)
 class Playlist {
     private Cancion cabeza;
 
@@ -188,4 +184,6 @@ class Playlist {
             System.out.println("Canción no encontrada.");
         }
     }
+
+
 }
